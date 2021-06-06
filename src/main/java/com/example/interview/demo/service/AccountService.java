@@ -7,6 +7,9 @@ import org.jboss.logging.Logger;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -79,7 +82,7 @@ public class AccountService {
     /**
      * Generate an account statement for the account denoted by id
      *
-     * @param id  the account ID.
+     * @param id the account ID.
      * @return the newly generated account statement.
      * @throws ObjectNotFoundException if the account does not exist.
      */
@@ -89,6 +92,10 @@ public class AccountService {
         if (account.isPresent()) {
             final Account theAccount = account.get();
             final Statement statement = new Statement(theAccount.getBalance(), theAccount.getId());
+            final List<Transaction> transactionList = new ArrayList<>();
+            transactionList.addAll(transactionProcessor.findTransactionsId(id));
+            transactionList.sort(Comparator.comparing(Transaction::getDate));
+            statement.addTransactions(transactionList);
             return statement;
         } else {
             final ObjectNotFoundException exception = new ObjectNotFoundException("Account with ID: " + id + "does not exist");

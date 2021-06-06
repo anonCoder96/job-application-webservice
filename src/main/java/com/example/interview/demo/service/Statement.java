@@ -23,12 +23,7 @@ public class Statement {
     /**
      * The list of ingoing transactions sorted by date/time.
      */
-    private final List<Transaction> ingoingTransactions = new ArrayList<>();
-
-    /**
-     * The list of outgoing transactions sorted by date/time.
-     */
-    private final List<Transaction> outGoingTransactions = new ArrayList<>();
+    private final List<Transaction> transactions = new ArrayList<>();
 
     /**
      * Constructor
@@ -42,21 +37,21 @@ public class Statement {
     }
 
     /**
-     * Adds a list of ingoing transactions to the current list of ingoing transactions.
+     * Adds a list of ingoing transactions to the current list of transactions.
      *
-     * @param ingoingTransactions new ingoing transactions to add.
+     * @param transactions new transactions to add.
      */
-    public void addIngoingTransactions(List<Transaction> ingoingTransactions) {
-        this.ingoingTransactions.addAll(ingoingTransactions);
+    public void addTransactions(List<Transaction> transactions) {
+        this.transactions.addAll(transactions);
     }
 
     /**
-     * Adds a list of outgoing transactions to the current list of outgoing transactions.
+     * Gets a list of transactions.
      *
-     * @param outGoingTransactions new outgoing transactions to add.
+     * @return the transactions list.
      */
-    public void addOutgoingTransactions(List<Transaction> outGoingTransactions) {
-        this.outGoingTransactions.addAll(outGoingTransactions);
+    public List<Transaction> getTransactions() {
+        return transactions;
     }
 
     public double getBalance() {

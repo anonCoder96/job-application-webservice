@@ -40,7 +40,9 @@ public class TransactionController {
     public boolean payUser(@PathVariable("payeeId") final long payeeId,
                            @PathVariable("recipientId") final long recipientId,
                            @PathVariable("amount") final double amount) throws Exception {
-        return accountService.performTransaction(payeeId, recipientId, amount);
+        if (payeeId == recipientId || amount < 0)
+            return false;
+        else
+            return accountService.performTransaction(payeeId, recipientId, amount);
     }
-
 }
